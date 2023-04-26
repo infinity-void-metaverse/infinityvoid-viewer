@@ -2,6 +2,8 @@ import './App.css';
 import {useRef, useEffect, useState} from 'react';
 import { WebRTCClient } from "@arcware/webrtc-plugin"
 
+
+
 const descriptors = {
   color: {
     'black': {
@@ -21,6 +23,12 @@ const descriptors = {
     }
   }
 }
+
+const paragraphs = [
+  "Loading resources",
+  "Loading textures",
+  "Optimizing performace"
+];
 
 function AppUI (props) {
   const { emitUIInteraction } = props;
@@ -53,19 +61,27 @@ function App() {
   const videoRef = useRef(null);
   const [webrtcClient, setWebrtcClient] = useState();
   const [responses, setResponses] = useState([]);
+  const [isLoading, setIsLoading] = useState(true)
+  const [videoDelay, setVideoDelay] = useState(true)
+  const [paragraphIndex, setParagraphIndex] = useState(0)
   let webrtcClientInit = false;
 
+
   const responseCallback = (message) => {
+    console.log('response')
     setResponses([message, ...responses])
   }
 
   const videoInitialized = () => {
+    console.log("jhjhjhjhjhjjhjhj")
+    setIsLoading(false)
     if (webrtcClient) {
       webrtcClient.emitUIInteraction(descriptors.color.black);
     }
   }
 
   useEffect(() => {
+
     const args = {
       address: "wss://signalling-client.ragnarok.arcware.cloud/",
       packageId: "ff41fd0c-cac9-4e4c-abe5-3ada402f57cc",
@@ -73,17 +89,20 @@ function App() {
       sizeContainer: sizeContainerRef.current,
       container: containerRef.current,
       videoRef: videoRef.current,
-      playOverlay: true,
+      forceVideoToFitContainer: true,
+      playOverlay: false,
       loader: () => {},
       applicationResponse: responseCallback,
       videoInitializeCallback: videoInitialized
     };
 
-    // double load protection
-    if (!webrtcClientInit) { 
-      webrtcClientInit = true;
-      setWebrtcClient(new WebRTCClient(args));
+    if (!webrtcClientInit) {
+       webrtcClientInit = true;
+       setWebrtcClient(new WebRTCClient(args));
+        
     }
+    
+    
   }, [])
 
   return (
