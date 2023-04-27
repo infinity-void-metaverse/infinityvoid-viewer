@@ -73,9 +73,10 @@ function App() {
   }
 
   const videoInitialized = () => {
-    console.log("jhjhjhjhjhjjhjhj")
+    
     setIsLoading(false)
     if (webrtcClient) {
+      console.log(webrtcClient);
       webrtcClient.emitUIInteraction(descriptors.color.black);
     }
   }
