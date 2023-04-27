@@ -34,7 +34,14 @@ function AppUI (props) {
   const { emitUIInteraction } = props;
 
   function colorChange (event) {
-    emitUIInteraction(descriptors.color[event?.target?.value])
+      let command = 'Streamer'
+    let consoleDescriptor = {
+      Console: command
+    };
+    emitUIInteraction(consoleDescriptor);
+    
+    
+   // emitUIInteraction(descriptors.color[event?.target?.value])
   }
   
   return (<div className="buttons-block">
