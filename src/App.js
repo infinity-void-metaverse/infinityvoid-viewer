@@ -1,55 +1,39 @@
 import './App.css';
 import {useRef, useEffect, useState} from 'react';
 import { WebRTCClient } from "@arcware/webrtc-plugin"
+import { InfinitySpin, ThreeDots  } from  'react-loader-spinner'
 
 
-
-const descriptors = {
-  color: {
-    'black': {
-      Change_Attribute_Event: true,
-      Attribute_Key: "Color",
-      Attribute_Value: "Black",
-    },
-    'white': {
-      Change_Attribute_Event: true,
-      Attribute_Key: "Color",
-      Attribute_Value: "White",
-    },
-    'yellow': {
-      Change_Attribute_Event: true,
-      Attribute_Key: "Color",
-      Attribute_Value: "Metro_Exodus",
-    }
-  }
+let message;
+var a = window.location.search;
+var b = a.split("?");
+if(b.length>1){
+ 
+  var c = b[1].split("&");
+  message = c[0];
 }
 
-const paragraphs = [
-  "Loading resources",
-  "Loading textures",
-  "Optimizing performace"
-];
 
 function AppUI (props) {
   const { emitUIInteraction } = props;
 
-  function colorChange (event) {
-      let command = 'Streamer'
+  function playButton (event) {
+    console.log(event);
+      let command = message
     let consoleDescriptor = {
       Console: command
     };
     emitUIInteraction(consoleDescriptor);
     
     
-   // emitUIInteraction(descriptors.color[event?.target?.value])
+   
   }
   
   return (<div className="buttons-block">
-            <select onChange={colorChange}>
-              {Object.keys(descriptors.color).map(v => (<option key={v}>{v}</option>))}
-            </select>
+            <button on onClick={()=>playButton()}>Play</button>
           </div>);
 }
+
 
 function Responses (props) {
   const {responses} = props;
@@ -62,6 +46,7 @@ function Responses (props) {
   </div>)
 }
 
+
 function App() {
   const sizeContainerRef = useRef(null);
   const containerRef = useRef(null);
@@ -71,20 +56,43 @@ function App() {
   const [isLoading, setIsLoading] = useState(true)
   const [videoDelay, setVideoDelay] = useState(true)
   const [paragraphIndex, setParagraphIndex] = useState(0)
+  const [loading, setLoading] = useState(false);
+  const [contentStyle, setContentStyle] = useState();
+  const [buttonText, setButtonText] = useState("Play");
+  const [playerStyle, setPlayerStyle] = useState({display:"none"});
+
+
   let webrtcClientInit = false;
 
 
   const responseCallback = (message) => {
     console.log('response')
+const url = "https://infinityvoid.io/"+message;
+
+    var win = window.open(url, '_blank');
+
+    if(win !==null){
+      win.focus();
+    }
+  
+
+
     setResponses([message, ...responses])
   }
 
   const videoInitialized = () => {
-    
-    setIsLoading(false)
+
     if (webrtcClient) {
       console.log(webrtcClient);
-      webrtcClient.emitUIInteraction(descriptors.color.black);
+    
+      
+      let consoleDescriptor = {
+        Console: message
+      };
+      webrtcClient.emitUIInteraction(consoleDescriptor);
+      setLoading(false);
+      
+     // webrtcClient.emitUIInteraction(descriptors.color.black);
     }
   }
 
@@ -114,8 +122,30 @@ function App() {
     
   }, [])
 
+  
+
+  const delay = ms => new Promise(
+    resolve => setTimeout(resolve, ms)
+  );
+
+
+  const startPlay =async()=>{
+    setButtonText("Loading");
+      setLoading(true);
+  
+    await delay(6000).then(()=>{
+      console.log("calling");
+ 
+    });
+    
+  }
+
   return (
-    <div className="App">
+    <>
+
+
+
+<div className="App">
       <div ref={sizeContainerRef}>
         <div ref={containerRef} style={{ zIndex: 1 }}>
           <video ref={videoRef} />
@@ -124,6 +154,10 @@ function App() {
         </div>
       </div>
     </div>
+      
+
+  
+    </>
   );
 }
 
