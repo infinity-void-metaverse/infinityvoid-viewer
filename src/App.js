@@ -1,7 +1,6 @@
 import './App.css';
 import {useRef, useEffect, useState} from 'react';
 import { WebRTCClient } from "@arcware/webrtc-plugin"
-import { InfinitySpin, ThreeDots  } from  'react-loader-spinner'
 
 
 let message;
