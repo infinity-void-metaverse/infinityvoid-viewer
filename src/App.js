@@ -1,8 +1,11 @@
 import './App.css';
 import {useRef, useEffect, useState} from 'react';
 import { WebRTCClient } from "@arcware/webrtc-plugin"
-import { InfinitySpin, ThreeDots  } from  'react-loader-spinner'
+import React from 'react';
+var isMobile = require('detect-touch-device');
 
+
+console.log(isMobile.isMobile);
 
 let message;
 var a = window.location.search;
@@ -17,16 +20,32 @@ if(b.length>1){
 function AppUI (props) {
   const { emitUIInteraction } = props;
 
+
+
   function playButton (event) {
-    console.log(event);
-      let command = message
+
+    let touchDescriptor;
+
+
+    if(isMobile.isMobile == true){
+      touchDescriptor = {
+       Istouch: 'True'
+     };
+   }else{
+     touchDescriptor = {
+       Istouch: 'False'
+     };
+   }
+
+   emitUIInteraction(touchDescriptor);
+
     let consoleDescriptor = {
-      Console: command
+      Console: message
     };
+
+  
     emitUIInteraction(consoleDescriptor);
-    
-    
-   
+
   }
   
   return (<div className="buttons-block">
@@ -35,16 +54,6 @@ function AppUI (props) {
 }
 
 
-function Responses (props) {
-  const {responses} = props;
-
-  return (<div className="responses-block">
-    <h4>Response log from UE app:</h4>
-    <div className="responses-list">
-      {responses.map(v => <p>{v}</p>)}
-    </div>
-  </div>)
-}
 
 
 function App() {
@@ -66,18 +75,12 @@ function App() {
 
 
   const responseCallback = (message) => {
-    console.log('response')
-const url = "https://infinityvoid.io/"+message;
-
-    var win = window.open(url, '_blank');
+    var win = window.open(message, '_blank');
 
     if(win !==null){
       win.focus();
     }
-  
 
-
-    setResponses([message, ...responses])
   }
 
   const videoInitialized = () => {
@@ -150,7 +153,7 @@ const url = "https://infinityvoid.io/"+message;
         <div ref={containerRef} style={{ zIndex: 1 }}>
           <video ref={videoRef} />
           {webrtcClient != null && <AppUI emitUIInteraction={webrtcClient.emitUIInteraction} />}
-          <Responses responses={responses} />
+         
         </div>
       </div>
     </div>
