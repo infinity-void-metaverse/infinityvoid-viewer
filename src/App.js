@@ -182,7 +182,7 @@ visible={loading}
   <div style={playerStyle}>
 
   <div ref={sizeContainerRef} >
-        <div ref={containerRef} >
+        <div ref={containerRef} style={{ zIndex: 1 }}>
           <video ref={videoRef} />
           
         </div>
