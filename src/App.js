@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { useEffect,useState, useRef } from 'react';
-import { InfinitySpin, ThreeDots  } from  'react-loader-spinner'
+import { InfinitySpin, ThreeDots, Bars  } from  'react-loader-spinner'
 import { WebRTCClient } from "@arcware/webrtc-plugin"
 
 var isMobile = require('detect-touch-device');
@@ -134,20 +134,25 @@ function App() {
 
   return (
     <>
+{loadingStart == true ?(<>
+  <img className='header'  src = "./logoNew.png" /> 
+  
+  <Bars
+  height="80"
+  width="80"
+  color="#26F8FF"
+  ariaLabel="bars-loading"
+  wrapperStyle={{justifyContent: "space-around", marginTop:"20%"}}
+  wrapperClass=""
+  visible={loadingStart}
+/>
 
-<ThreeDots 
-height="180" 
-width="180" 
-radius="9"
-color="#26F8FF" 
-ariaLabel="loading"
-wrapperStyle={{justifyContent: "space-around"}}
-wrapperClassName=""
-visible={loadingStart}
- />
 
-      <img className='header' style={contentStyle} src = "./logoNew.png" /> 
-   
+</>):(null)}
+
+
+
+<img className='header' style={contentStyle} src = "./logoNew.png" /> 
 
 <div className='content' style={contentStyle}>
 
