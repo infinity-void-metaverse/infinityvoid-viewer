@@ -96,7 +96,7 @@ function App() {
     await delay(6000).then(()=>{
     
       if(webrtcClient != null){
-        setPlayerStyle({height:"100vh",display:"flex",top:'0',buttom:'0'});
+        setPlayerStyle({height:"100vh",display:"flex",top:'0',bottom:'0', cursor: 'none'});
 
         setLoading(false);
         setContentStyle({display:"none"});
