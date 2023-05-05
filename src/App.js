@@ -21,8 +21,9 @@ function AppUI (props) {
   const { emitUIInteraction } = props;
 
 
-
   function playButton (event) {
+
+    document.body.requestPointerLock();
 
     let touchDescriptor;
 
@@ -85,10 +86,11 @@ function App() {
 
   const videoInitialized = () => {
 
-    if (webrtcClient) {
-      console.log(webrtcClient);
-    
+
+    /*if (webrtcClient) {
       
+      console.log(webrtcClient);
+
       let consoleDescriptor = {
         Console: message
       };
@@ -97,13 +99,13 @@ function App() {
       
      // webrtcClient.emitUIInteraction(descriptors.color.black);
     }
+    */
   }
 
   useEffect(() => {
 
     const args = {
       address: "wss://signalling-client.ragnarok.arcware.cloud/",
-     // packageId: "ff41fd0c-cac9-4e4c-abe5-3ada402f57cc",
      shareId: 'share-dbb4f8fd-9f94-4220-af2d-02405f8a32fa',
       settings: {},
       sizeContainer: sizeContainerRef.current,
