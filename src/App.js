@@ -64,7 +64,8 @@ function App() {
 
     const args = {
         address: "wss://signalling-client.ragnarok.arcware.cloud/",
-        shareId: 'share-dbb4f8fd-9f94-4220-af2d-02405f8a32fa',
+        shareId: 'share-330e9620-1a46-4a19-9c58-004f4d1869fe',
+        packageId:"367d1c07-4a5b-4a4b-ad58-0a1bfeaf708f",
         settings: {},
         sizeContainer: sizeContainerRef.current,
         container: containerRef.current,
