@@ -120,6 +120,7 @@ function App() {
           Console: message
         };
     
+        console.log(consoleDescriptor);
       
         webrtcClient.emitUIInteraction(consoleDescriptor);
 
