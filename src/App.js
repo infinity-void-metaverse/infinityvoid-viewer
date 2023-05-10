@@ -103,7 +103,7 @@ function App() {
 
         let touchDescriptor;
 
-
+/*
         if(isMobile.isMobile == true){
           touchDescriptor = {
            Istouch: 'True'
@@ -115,7 +115,7 @@ function App() {
        }
     
        webrtcClient.emitUIInteraction(touchDescriptor);
-    
+   */ 
         let consoleDescriptor = {
           Console: message
         };
