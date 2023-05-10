@@ -18,13 +18,13 @@ function AppUI (props) {
   const { emitUIInteraction } = props;
 
   function playButton (event) {
-    console.log(event);
+
       let command = message
     let consoleDescriptor = {
-      Console: command
+      Console: "64264e4547fe6b019cd9b497"
     };
     emitUIInteraction(consoleDescriptor);
-    
+    console.log(consoleDescriptor);
     
    
   }
@@ -83,10 +83,8 @@ const url = "https://infinityvoid.io/"+message;
   const videoInitialized = () => {
 /*
     if (webrtcClient) {
-      console.log(webrtcClient);
-    
-      
-      let consoleDescriptor = {
+    console.log(webrtcClient);
+    let consoleDescriptor = {
         Console: message
       };
       webrtcClient.emitUIInteraction(consoleDescriptor);
