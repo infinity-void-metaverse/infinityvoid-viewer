@@ -81,7 +81,7 @@ const url = "https://infinityvoid.io/"+message;
   }
 
   const videoInitialized = () => {
-
+/*
     if (webrtcClient) {
       console.log(webrtcClient);
     
@@ -94,6 +94,7 @@ const url = "https://infinityvoid.io/"+message;
       
      // webrtcClient.emitUIInteraction(descriptors.color.black);
     }
+    */
   }
 
   useEffect(() => {
