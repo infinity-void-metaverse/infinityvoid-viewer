@@ -8,8 +8,13 @@ function App() {
   const audioRef = useRef(null);
   const [webRTCclient, setWebRTCclient] = useState(null);
 
+
+  let webRTCclientInit = false;
+
+
   useEffect(() => {
-    const newWebRTC = WebRTCClient ({
+
+    const args = {
       address: 'wss://signalling-client.ragnarok.arcware.cloud/',
       shareId: 'share-330e9620-1a46-4a19-9c58-004f4d1869fe',
       settings: { /* object with settings */ },
@@ -20,8 +25,13 @@ function App() {
       container: videoContainerRef.current,
       videoRef: videoRef.current,
       audioRef: audioRef.current
-    });
-    setWebRTCclient(newWebRTC);
+    };
+    if (!webRTCclientInit) {
+
+      console.log(args);
+      webRTCclientInit = true;
+      setWebRTCclient(new WebRTCClient(args));
+       }
   }, []);
 
   return (
