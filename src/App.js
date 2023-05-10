@@ -27,6 +27,7 @@ function App() {
   const sizeContainerRef = useRef(null);
   const containerRef = useRef(null);
   const videoRef = useRef(null);
+  const audioRef = useRef(null);
   const [webrtcClient, setWebrtcClient] = useState();
 
   let webrtcClientInit = false;
@@ -70,6 +71,7 @@ function App() {
         sizeContainer: sizeContainerRef.current,
         container: containerRef.current,
         videoRef: videoRef.current,
+        audioRef: audioRef.current,
         forceVideoToFitContainer: true,
         playOverlay: false,
         loader: () => {},
@@ -191,7 +193,7 @@ visible={loading}
   <div ref={sizeContainerRef} >
         <div ref={containerRef} style={{ zIndex: 1 }}>
           <video ref={videoRef} />
-          
+          <audio ref={audioRef} />
         </div>
       </div>
 </div>
