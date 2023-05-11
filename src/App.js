@@ -125,7 +125,7 @@ function App() {
     
         console.log(consoleDescriptor);
         console.log(touchDescriptor);
-      //  webrtcClient.emitUIInteraction(consoleDescriptor);
+        webrtcClient.emitUIInteraction(consoleDescriptor);
 
       }
      
