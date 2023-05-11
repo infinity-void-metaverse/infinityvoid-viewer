@@ -21,6 +21,10 @@ margin-left: 5%;
 .wrapperButoon {
   display: flex;
   justify-content: center;
+  align-items: center;
+  position: fixed;
+  top:40%;
+  left:42%;
 }
 
 .cta {
