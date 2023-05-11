@@ -46,12 +46,12 @@ function App() {
 
     if (messageSoc == "Start connection to stream signalling."){
 
-     
+        await delay(3000).then(()=>{
           
             setContentStyle({display:'block'});
             setLoadingStart(false);
 
-    
+        })
      
     }
     
