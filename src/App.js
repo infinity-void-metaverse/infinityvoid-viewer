@@ -25,7 +25,7 @@ function App() {
 
 
   const sizeContainerRef = useRef(null);
-  const containerRef = useRef(null);
+  const videoContainerRef = useRef(null);
   const videoRef = useRef(null);
   const audioRef = useRef(null);
   const [webrtcClient, setWebrtcClient] = useState();
@@ -69,11 +69,12 @@ function App() {
         packageId:"a5875bd0-813f-4947-a847-a1fc7522ac28",
         settings: {},
         sizeContainer: sizeContainerRef.current,
-        container: containerRef.current,
+        container: videoContainerRef.current,
         videoRef: videoRef.current,
         audioRef: audioRef.current,
         forceVideoToFitContainer: true,
         playOverlay: false,
+        autoplay:{video:true,audio:true},
         loader: () => {},
         applicationResponse: responseCallback,
         videoInitializeCallback: videoInitialized,
@@ -191,8 +192,8 @@ visible={loading}
   <div style={playerStyle}>
 
   <div ref={sizeContainerRef} >
-        <div ref={containerRef} style={{ zIndex: 1 }}>
-       
+        <div ref={videoContainerRef}>
+          <video ref={videoRef} />
           <audio ref={audioRef} />
         </div>
       </div>
