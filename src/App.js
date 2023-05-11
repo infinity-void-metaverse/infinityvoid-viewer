@@ -73,7 +73,6 @@ function App() {
         videoRef: videoRef.current,
         audioRef: audioRef.current,
         forceVideoToFitContainer: true,
-        playOverlay: false,
         loader: () => {},
         applicationResponse: responseCallback,
         videoInitializeCallback: videoInitialized,
@@ -99,7 +98,7 @@ function App() {
     await delay(6000).then(()=>{
     
       if(webrtcClient != null){
-        setPlayerStyle({height:"100vh",display:"flex",top:'0',bottom:'0', cursor: 'none'});
+        setPlayerStyle({height:"100vh", width:"100vw",display:"flex",top:'0',bottom:'0', cursor: 'none'});
 
         setLoading(false);
         setContentStyle({display:"none"});
@@ -192,8 +191,9 @@ visible={loading}
 
   <div ref={sizeContainerRef} >
         <div ref={containerRef} style={{ zIndex: 1 }}>
-          <video ref={videoRef} />
-          <audio ref={audioRef} />
+          
+          <audio ref={audioRef}/>
+         
         </div>
       </div>
 </div>
