@@ -109,11 +109,11 @@ function App() {
 
         if(isMobile.isMobile == true){
           touchDescriptor = {
-           Istouch: 'True'
+           istouch: 'True'
          };
        }else{
          touchDescriptor = {
-           Istouch: 'False'
+           istouch: 'False'
          };
        }
     
