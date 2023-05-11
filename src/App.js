@@ -109,11 +109,11 @@ function App() {
 
         if(isMobile.isMobile == true){
           touchDescriptor = {
-           istouch: 'True'
+           Istouch: 'True'
          };
        }else{
          touchDescriptor = {
-           istouch: 'False'
+           Istouch: 'False'
          };
        }
     
@@ -125,7 +125,7 @@ function App() {
     
         console.log(consoleDescriptor);
         console.log(touchDescriptor);
-        webrtcClient.emitUIInteraction(consoleDescriptor);
+      //  webrtcClient.emitUIInteraction(consoleDescriptor);
 
       }
      
