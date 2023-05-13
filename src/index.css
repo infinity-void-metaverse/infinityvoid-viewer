@@ -24,8 +24,23 @@ margin-left: 5%;
     align-items: center;
     position: fixed;
     top:40%;
-    left:22%;
+    left:20%;
   }
+
+  .cta {
+    display: flex;
+    padding: 5px 25px;
+    text-decoration: none;
+    font-family: 'proxima_nova_rgregular', sans-serif;
+    font-size: 30px;
+    color: #0a0519;
+    background: #26F8FF;
+    transition: 1s;
+    box-shadow: 6px 6px 0 #0a0519;
+    transform: skewX(-15deg);
+    cursor: pointer;
+}
+
 }
 
 @media only screen and (min-width: 768px) {
@@ -37,11 +52,8 @@ margin-left: 5%;
     top:40%;
     left:42%;
   }
-}
 
-
-
-.cta {
+  .cta {
     display: flex;
     padding: 10px 45px;
     text-decoration: none;
@@ -54,6 +66,12 @@ margin-left: 5%;
     transform: skewX(-15deg);
     cursor: pointer;
 }
+
+}
+
+
+
+
 .btn{
   border: none;
   border-color: transparent;
@@ -92,7 +110,7 @@ margin-left: 5%;
   }
 
   span:nth-child(2) {
-    width: 20px;
+    width: 10px;
     margin-left: 30px;
     position: relative;
     top: 12%;
