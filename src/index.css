@@ -17,15 +17,29 @@ margin-left: 5%;
  margin-top: 20%;
 }
 
-
-.wrapperButoon {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: fixed;
-  top:40%;
-  left:42%;
+@media only screen and (max-width: 600px) {
+  .wrapperButoon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top:40%;
+    left:22%;
+  }
 }
+
+@media only screen and (min-width: 768px) {
+  .wrapperButoon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top:40%;
+    left:42%;
+  }
+}
+
+
 
 .cta {
     display: flex;

@@ -77,7 +77,7 @@ function App() {
         container: containerRef.current,
         videoRef: videoRef.current,
         audioRef: audioRef.current,
-        forceVideoToFitContainer: true,
+        forceVideoToFitContainer: false,
         autoplay:{ 
           video: true,
           audio: true 
@@ -212,12 +212,11 @@ visible={loading}
 
   <div style={playerStyle}>
 
-  <div ref={sizeContainerRef} >
-        <div ref={containerRef} style={{ zIndex: 1 }}>
+  <div ref={sizeContainerRef}>
           <video ref={videoRef} />
           <audio ref={audioRef} />
          
-        </div>
+       
       </div>
 </div>
  
