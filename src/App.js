@@ -53,6 +53,7 @@ function App() {
       setLoadingStart(false);
 
 
+     
      })
           
         }
@@ -94,6 +95,7 @@ function App() {
       if(locWeb !== null){
         setPlayerStyle({height:"100vh", width:"100vw",display:"flex",top:'0',bottom:'0', cursor: 'none'});
          setLoadingStart(false);
+         
         }
       
       if (!webrtcClientInit) {
@@ -101,6 +103,8 @@ function App() {
         setWebrtcClient(new WebRTCClient(args));
          
      }
+
+  
    
 
   }, [])
@@ -109,6 +113,14 @@ function App() {
   const delay = ms => new Promise(
     resolve => setTimeout(resolve, ms)
   );
+
+
+  useEffect(()=>{
+
+    console.log(isMobile);
+
+
+  },[isMobile]);
 
   const startPlay =async()=>{
     setButtonText("Loading");
@@ -140,11 +152,15 @@ function App() {
         let consoleDescriptor = {
           MessageId: message
         };
-    
-        console.log(consoleDescriptor);
-        console.log(touchDescriptor);
-        webrtcClient.emitUIInteraction(consoleDescriptor);
 
+        
+    
+        webrtcClient.emitUIInteraction(consoleDescriptor);
+        let resolutionDescriptor = {
+          Console: 'r.setres 640x480f'
+        };
+  
+      webrtcClient.emitUIInteraction(resolutionDescriptor);
         window.location.reload(false);
 
       }
