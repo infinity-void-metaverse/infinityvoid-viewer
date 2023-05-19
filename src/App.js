@@ -154,13 +154,14 @@ function App() {
         };
 
         
-    
+
         webrtcClient.emitUIInteraction(consoleDescriptor);
-        let resolutionDescriptor = {
+        /*    let resolutionDescriptor = {
           Console: 'r.setres 640x480f'
         };
-  
+
       webrtcClient.emitUIInteraction(resolutionDescriptor);
+        */
         window.location.reload(false);
 
       }
