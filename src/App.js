@@ -93,7 +93,7 @@ function App() {
 
       const locWeb = sessionStorage.getItem("webRtcClient");
       if(locWeb !== null){
-        setPlayerStyle({height:"100vh", width:"100vw",display:"flex",top:'0',bottom:'0', cursor: 'none'});
+        setPlayerStyle({cursor: 'none'});
          setLoadingStart(false);
          
         }
@@ -229,11 +229,13 @@ visible={loading}
 
   <div style={playerStyle}>
 
-  <div ref={sizeContainerRef}>
+ <div ref={sizeContainerRef}>
+  <div ref={containerRef}>
+ 
           <video ref={videoRef} />
           <audio ref={audioRef} />
          
-       
+       </div>
       </div>
 </div>
  
