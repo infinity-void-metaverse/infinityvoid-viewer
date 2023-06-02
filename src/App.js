@@ -129,7 +129,7 @@ function App() {
     await delay(6000).then(()=>{
     
       if(webrtcClient != null){
-        setPlayerStyle({height:"100vh", width:"100vw",display:"flex",top:'0',bottom:'0', cursor: 'none'});
+        setPlayerStyle({ cursor: 'none'});
         sessionStorage.setItem("webRtcClient", webrtcClient);
         setLoading(false);
         setContentStyle({display:"none"});
