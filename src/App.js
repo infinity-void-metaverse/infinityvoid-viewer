@@ -162,7 +162,7 @@ function App() {
 
       webrtcClient.emitUIInteraction(resolutionDescriptor);
         */
-        window.location.reload(false);
+       
 
       }
      
