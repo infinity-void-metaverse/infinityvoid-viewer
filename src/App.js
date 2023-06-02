@@ -78,12 +78,7 @@ function App() {
         container: containerRef.current,
         videoRef: videoRef.current,
         audioRef: audioRef.current,
-        forceVideoToFitContainer: false,
-        autoplay:{ 
-          video: true,
-          audio: true 
-          },
-          soundMode:true,
+     
         
         loader: () => {},
         applicationResponse: responseCallback,
