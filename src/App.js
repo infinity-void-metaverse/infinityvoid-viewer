@@ -22,7 +22,7 @@ function App() {
   const [buttonText, setButtonText] = useState("Play");
   const [loading, setLoading] = useState(false);
   const [loadingStart, setLoadingStart] = useState(true);
-
+  const [isMuted, setIsMuted] = useState(false);
 
   const sizeContainerRef = useRef(null);
   const containerRef = useRef(null);
@@ -114,7 +114,13 @@ function App() {
     resolve => setTimeout(resolve, ms)
   );
 
-
+  const toggleMute = () => {
+    setIsMuted(!isMuted);
+	console.log(audioRef.current.muted);
+    audioRef.current.muted = !isMuted;
+  };
+  
+  
   useEffect(()=>{
 
     console.log(isMobile);
@@ -228,6 +234,7 @@ visible={loading}
   </div> 
 
   <div style={playerStyle}>
+ <button onClick={toggleMute}>{isMuted ? "Mute" : "UnMute"}</button>
 
  <div ref={sizeContainerRef}>
   <div ref={containerRef}>
