@@ -1,7 +1,6 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { WebRTCClient } from '@arcware/webrtc-plugin';
 import { BsFullscreen, BsFullscreenExit, BsFillVolumeMuteFill, BsFillVolumeUpFill } from "react-icons/bs";
-
 var isMobile = require('detect-touch-device');
 
 
@@ -103,7 +102,11 @@ function App() {
   }, []);
   
     const toggleMute = () => {
+		var x = document.getElementById("myAudio");
+		
     setIsMuted(!isMuted);
+	x.play();
+	 x.muted = !isMuted;
 	console.log(audioRef.current.muted);
     audioRef.current.muted = !isMuted;
   };
@@ -123,17 +126,22 @@ function App() {
 	}
   };
 
+
+
   return (
+ 
+ 
 <div id = "pixelPlay" ref={sizeContainerRef}>
-	<button onClick={toggleMute} style={{zIndex:100, position:"fixed",bottom:"10px", backgroundColor:"transparent", border:"0px", borderColor:"transparent", right:"60px"}}>{isMuted ? <BsFillVolumeUpFill size={24}/> : <BsFillVolumeMuteFill size={24}/>}</button>
+	<button onClick={toggleMute} style={{zIndex:100, position:"fixed",bottom:"10px", backgroundColor:"transparent", border:"0px", borderColor:"transparent", right:"60px"}}>{isMuted ? <BsFillVolumeMuteFill size={24}/> : <BsFillVolumeUpFill size={24}/>}</button>
 	
  <button onClick={()=>screenSize("streamingVideoContainer")} style={{zIndex:100, position:"fixed",bottom:"10px", backgroundColor:"transparent", border:"0px", borderColor:"transparent", right:"20px"}}>{isFull ? <BsFullscreenExit size={24}/> : <BsFullscreen size={24}/>}</button>
 
       <div ref={videoContainerRef}>
         <video ref={videoRef} />
-        <audio muted={false} ref={audioRef} />
+        <audio id="myAudio" ref={audioRef} />
       </div>
     </div>
+	
   );
 };
 
