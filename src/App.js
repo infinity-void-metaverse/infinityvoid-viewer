@@ -21,7 +21,7 @@ function App() {
   const audioRef = useRef(null);
   const [webRTCclient, setWebRTCclient] = useState(null);
   const [isMuted, setIsMuted] = useState(false);
-  const [isFull, setIsFull] = useState(false);
+  const [isFullScreen, setIsFullScreen] = useState(false);
 
   const sendSocketMessage = async(messageSoc) => {
 
@@ -64,21 +64,14 @@ function App() {
 				
 					 data.emitUIInteraction(consoleDescriptor);
 				     data.emitUIInteraction(touchDescriptor);
+				
 			})
 		 
 
  }
  
  
- useEffect(() => {
-  function onFullscreenChange() {
-    setIsFull(Boolean(document.pixelPlay));
-  }
-        
-  document.addEventListener('fullscreenchange', onFullscreenChange);
 
-  return () => document.removeEventListener('fullscreenchange', onFullscreenChange);
-}, []);
 
   
   useEffect(() => {
@@ -94,7 +87,12 @@ function App() {
       audioRef: audioRef.current,
 	  applicationResponse: responseCallback,
 	  videoInitializeCallback:(data)=> videoInitialized(data),
-      sendLetter:(messageSoc)=>sendSocketMessage(messageSoc)
+      sendLetter:(messageSoc)=>sendSocketMessage(messageSoc),
+	  
+	  autoPlay:{
+		  audio:true,
+		  video:true
+	  }
     });
 	
   setWebRTCclient(newWebRTC);
@@ -105,43 +103,61 @@ function App() {
 		var x = document.getElementById("myAudio");
 		
     setIsMuted(!isMuted);
-	x.play();
+	x.play().then(()=>{
 	 x.muted = !isMuted;
-	console.log(audioRef.current.muted);
+	});	
+	
     audioRef.current.muted = !isMuted;
   };
   
     const screenSize = (id) => {
 		
-		console.log(id);
-    var element = document.getElementById(id);       
-	console.log(element);
+
+    var elem  = document.documentElement;       
 	
-	if(element !== null){
-  if (element.mozRequestFullScreen) {
-    element.mozRequestFullScreen();
-  } else if (element.webkitRequestFullScreen) {
-    element.webkitRequestFullScreen();
-  }  
-	}
+		setIsFullScreen(!isFullScreen);
+console.log(isFullScreen);
+
+ if (elem.requestFullscreen) {
+    elem.requestFullscreen();
+  } else if (elem.webkitRequestFullscreen) { /* Safari */
+    elem.webkitRequestFullscreen();
+  } else if (elem.msRequestFullscreen) { /* IE11 */
+    elem.msRequestFullscreen();
+  }
+  console.log(document);
+	
+			 if (document.fullscreenElement !== null) {
+ if (document.exitFullscreen) {
+    document.exitFullscreen();
+  } else if (document.webkitExitFullscreen) { /* Safari */
+    document.webkitExitFullscreen();
+  } else if (document.msExitFullscreen) { /* IE11 */
+    document.msExitFullscreen();
+  }
+			 }
   };
 
 
 
   return (
- 
- 
-<div id = "pixelPlay" ref={sizeContainerRef}>
-	<button onClick={toggleMute} style={{zIndex:100, position:"fixed",bottom:"10px", backgroundColor:"transparent", border:"0px", borderColor:"transparent", right:"60px"}}>{isMuted ? <BsFillVolumeMuteFill size={24}/> : <BsFillVolumeUpFill size={24}/>}</button>
+ <>
+<div  ref={sizeContainerRef} style={{height:"80vh"}}>
 	
- <button onClick={()=>screenSize("streamingVideoContainer")} style={{zIndex:100, position:"fixed",bottom:"10px", backgroundColor:"transparent", border:"0px", borderColor:"transparent", right:"20px"}}>{isFull ? <BsFullscreenExit size={24}/> : <BsFullscreen size={24}/>}</button>
+      <div id="pixelPlay" ref={videoContainerRef} style={{height:"80vh"}}>
+         <video autoplay ref={videoRef} />
+        <audio  id="myAudio" autoPlay ref={audioRef} />
+		
 
-      <div ref={videoContainerRef}>
-        <video ref={videoRef} />
-        <audio id="myAudio" ref={audioRef} />
+ <button onClick={toggleMute} style={{zIndex:100, position:"fixed",bottom:"10px", backgroundColor:"transparent", border:"0px", borderColor:"transparent", right:"50px"}}>{isMuted ? <BsFillVolumeMuteFill size={24}/> : <BsFillVolumeUpFill size={24}/>}</button>
+	
+ <button onClick={()=>screenSize("pixelPlay")} style={{zIndex:100, position:"fixed",bottom:"10px", backgroundColor:"transparent", border:"0px", borderColor:"transparent", right:"25px"}}>{isFullScreen ? <BsFullscreenExit size={24}/> : <BsFullscreen size={24}/>}</button>
+ 
+      
+		
       </div>
     </div>
-	
+	</>
   );
 };
 
