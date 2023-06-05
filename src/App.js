@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { WebRTCClient } from '@arcware/webrtc-plugin';
 import { BsFullscreen, BsFullscreenExit, BsFillVolumeMuteFill, BsFillVolumeUpFill } from "react-icons/bs";
-import { InfinitySpin, ThreeDots, Bars  } from  'react-loader-spinner'
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 
 
 var isMobile = require('detect-touch-device');
@@ -29,12 +29,32 @@ function App() {
   const [isFullScreen, setIsFullScreen] = useState(false);
   const [loading, setLoading] = useState(true);
   const [videoPlay, setVideoPlay] = useState();
+  const [modal, setModal] = useState(true);
+
   const sendSocketMessage = async(messageSoc) => {
 
    console.log(messageSoc);
   }
 
 
+  const toggle = () => setModal(!modal);
+
+  const toggleYes =()=>{
+    var elem  = document.documentElement; 
+    setModal(!modal);      
+	
+		setIsFullScreen(!isFullScreen);
+
+
+ if (elem.requestFullscreen) {
+    elem.requestFullscreen();
+  } else if (elem.webkitEnterFullScreen) { /* Safari */
+    elem.webkitRequestFullscreen();
+  } else if (elem.msRequestFullscreen) { /* IE11 */
+    elem.msRequestFullscreen();
+  }
+
+  }
 
   
   const responseCallback = (message) => {
@@ -144,21 +164,6 @@ setWebRTCclient(newWebRTC);
 
 }, []);
 
-const fullScreenCall = () => {
-  var elem  = document.documentElement;       
-	
-		setIsFullScreen(!isFullScreen);
-
-
- if (elem.requestFullscreen) {
-    elem.requestFullscreen();
-  } else if (elem.webkitEnterFullScreen) { /* Safari */
-    elem.webkitRequestFullscreen();
-  } else if (elem.msRequestFullscreen) { /* IE11 */
-    elem.msRequestFullscreen();
-  }
- 
-};
 
 
   
@@ -236,6 +241,23 @@ console.log(isFullScreen);
       </div>
     </div>
   
+
+    <Modal  modalTransition={{ timeout: 700 }}
+        backdropTransition={{ timeout: 1300 }} isOpen={modal} toggle={toggle} >
+        <ModalHeader toggle={toggle}>Disclaimer</ModalHeader>
+        <ModalBody>
+         Switch to fullScreen
+        </ModalBody>
+        <ModalFooter>
+          <Button color="primary" onClick={toggleYes}>
+            Yes
+          </Button>{' '}
+          <Button color="secondary" onClick={toggle}>
+            No
+          </Button>
+        </ModalFooter>
+      </Modal>
+
 	</>
   );
 };
