@@ -1,11 +1,8 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { WebRTCClient } from '@arcware/webrtc-plugin';
 import { BsFullscreen, BsFullscreenExit, BsFillVolumeMuteFill, BsFillVolumeUpFill } from "react-icons/bs";
-import { InfinitySpin, ThreeDots, Bars  } from  'react-loader-spinner'
-
-
 var isMobile = require('detect-touch-device');
-let playListVideo =["https://development-test.fra1.cdn.digitaloceanspaces.com/1.mp4","https://development-test.fra1.cdn.digitaloceanspaces.com/2.mp4","https://development-test.fra1.cdn.digitaloceanspaces.com/3.mp4"];
+
 
 let message;
 var a = window.location.search;
@@ -22,13 +19,11 @@ function App() {
   const sizeContainerRef = useRef(null);
   const videoContainerRef = useRef(null);
   const videoRef = useRef(null);
-  const videoPlayRef = useRef(null);
   const audioRef = useRef(null);
   const [webRTCclient, setWebRTCclient] = useState(null);
   const [isMuted, setIsMuted] = useState(false);
   const [isFullScreen, setIsFullScreen] = useState(false);
-  const [loading, setLoading] = useState(true);
-  const [videoPlay, setVideoPlay] = useState();
+
   const sendSocketMessage = async(messageSoc) => {
 
    console.log(messageSoc);
@@ -51,14 +46,7 @@ function App() {
 
 
 
-useEffect(()=>{
-var prevVideo = localStorage.getItem("preVideoPlay");
-playListVideo.filter(e=> e!== prevVideo);
-var item = playListVideo[Math.floor(Math.random()*playListVideo.length)];
-localStorage.setItem("preVideoPlay", item);
 
-setVideoPlay(item);
-},[])
 
   useEffect(()=>{
    
@@ -67,7 +55,7 @@ setVideoPlay(item);
       audio.addEventListener("canplaythrough", () => {
         audio.play().catch(e => {
            window.addEventListener('click', () => {
-           
+            console.log("addevent");
               audio.play()
            })
         })
@@ -79,9 +67,6 @@ setVideoPlay(item);
   
   const videoInitialized = async(data) => {
  
-
-    console.log(data);
-
        let consoleDescriptor = {
           MessageId: message
         };
@@ -102,14 +87,12 @@ setVideoPlay(item);
        }
 	   
 		    await delay(8000).then(()=>{
-
-
          
 					 data.emitUIInteraction(consoleDescriptor);
 				   data.emitUIInteraction(touchDescriptor);
 
-          setLoading(false);
-       
+          
+    
 
 				
 			})
@@ -144,22 +127,6 @@ setWebRTCclient(newWebRTC);
 
 }, []);
 
-const fullScreenCall = () => {
-  var elem  = document.documentElement;       
-	
-		setIsFullScreen(!isFullScreen);
-
-
- if (elem.requestFullscreen) {
-    elem.requestFullscreen();
-  } else if (elem.webkitEnterFullScreen) { /* Safari */
-    elem.webkitRequestFullscreen();
-  } else if (elem.msRequestFullscreen) { /* IE11 */
-    elem.msRequestFullscreen();
-  }
- 
-};
-
 
   
     const toggleMute = () => {
@@ -173,7 +140,7 @@ const fullScreenCall = () => {
     audioRef.current.muted = !isMuted;
   };
   
-    const screenSize = () => {
+    const screenSize = (id) => {
 		
 
     var elem  = document.documentElement;       
@@ -205,34 +172,20 @@ console.log(isFullScreen);
 
   return (
  <>
- <div style={{position:"absolute",height:"100vh", width:"100vw"}}>
-  
- <div style={{ position:"fixed",zIndex:"110",marginLeft:"140px"}}>
- <img src = "./infilogo.png" width="100px" /> 
- </div>
- {loading == true ?(<>
-  <div  style={{ position:"fixed",zIndex:"100"}}>
-  <video ref={videoPlayRef} src={videoPlay}  loop muted autoPlay  type="video/mp4" />
 
-  </div>
-</>):(null)}
-
-
-
-<div className='container-fluid'  ref={sizeContainerRef} style={{top:0,bottom:0,height:"100vh", width:"100vw", position:"fixed", left:0,right:0 }}>
+<div  ref={sizeContainerRef} style={{height:"100vh", width:"100vw",top:'0',bottom:'0', position:"fixed", left:"0",right:"0" }}>
 	
-      <div ref={videoContainerRef} >
-         <video id="myVideo" autoPlay ref={videoRef} />
+      <div id="pixelPlay" ref={videoContainerRef} >
+         <video id="myVideo" autoplay ref={videoRef} />
         <audio  id="myAudio" autoPlay ref={audioRef} />
 		
 
- <button onClick={toggleMute} style={{zIndex:100, position:"fixed",bottom:"10px", backgroundColor:"transparent", border:"0px", borderColor:"transparent", right:"70px"}}>{isMuted ? <BsFillVolumeMuteFill size={24} color='26F8FF'/> : <BsFillVolumeUpFill size={24} color='26F8FF'/>}</button>
+ <button onClick={toggleMute} style={{zIndex:100, position:"fixed",bottom:"10px", backgroundColor:"transparent", border:"0px", borderColor:"transparent", right:"50px"}}>{isMuted ? <BsFillVolumeMuteFill size={24}/> : <BsFillVolumeUpFill size={24}/>}</button>
 	
- <button onClick={()=>screenSize()} style={{zIndex:100, position:"fixed",bottom:"10px", backgroundColor:"transparent", border:"0px", borderColor:"transparent", right:"25px"}}>{isFullScreen ? <BsFullscreenExit size={24} color='26F8FF'/> : <BsFullscreen size={24} color='26F8FF'/>}</button>
+ <button onClick={()=>screenSize("pixelPlay")} style={{zIndex:100, position:"fixed",bottom:"10px", backgroundColor:"transparent", border:"0px", borderColor:"transparent", right:"25px"}}>{isFullScreen ? <BsFullscreenExit size={24}/> : <BsFullscreen size={24}/>}</button>
  
       
 		
-      </div>
       </div>
     </div>
   
