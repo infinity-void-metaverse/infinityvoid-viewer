@@ -4,7 +4,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #000;
+  background-color: #0a0519;
 }
 
 video::-webkit-media-controls-fullscreen-button {
@@ -20,20 +20,6 @@ margin-left: 5%;
 
 .content{
  margin-top: 20%;
-}
-
-
-@media screen and (min-width: 320px) and (max-width: 767px) and (orientation: portrait) {
-  html {
-    transform: rotate(-90deg);
-    transform-origin: left top;
-    width: 100vh;
-    height: 100vw;
-    overflow-x: hidden;
-    position: absolute;
-    top: 100%;
-    left: 0;
-  }
 }
 
 @media only screen and (max-width: 600px) {

@@ -14,7 +14,6 @@ if(b.length>1){
 }
 
 
-
 function App() {
   const sizeContainerRef = useRef(null);
   const videoContainerRef = useRef(null);
@@ -30,8 +29,6 @@ function App() {
   }
 
 
-
-  
   const responseCallback = (message) => {
     var win = window.open(message, '_blank');
 
@@ -43,27 +40,6 @@ function App() {
  const delay = ms => new Promise(
     resolve => setTimeout(resolve, ms)
   );
-
-
-
-
-
-  useEffect(()=>{
-   
-    var audio = document.getElementById("myAudio");
- 
-      audio.addEventListener("canplaythrough", () => {
-        audio.play().catch(e => {
-           window.addEventListener('click', () => {
-           
-              audio.play()
-           })
-        })
-
-         
-
-     });
-  },[audioRef])
   
   const videoInitialized = async(data) => {
  
@@ -78,8 +54,6 @@ function App() {
           touchDescriptor = {
            Istouch: 'True'
          };
-
-
        }else{
          touchDescriptor = {
            Istouch: 'False'
@@ -87,55 +61,51 @@ function App() {
        }
 	   
 		    await delay(8000).then(()=>{
-         
+				
 					 data.emitUIInteraction(consoleDescriptor);
-				   data.emitUIInteraction(touchDescriptor);
-
-          
-    
-
+				     data.emitUIInteraction(touchDescriptor);
 				
 			})
 		 
 
  }
  
+ 
+
 
   
-useEffect(() => {
-  const newWebRTC = new WebRTCClient ({
-    address: 'wss://signalling-client.ragnarok.arcware.cloud/',
-    shareId: 'share-330e9620-1a46-4a19-9c58-004f4d1869fe',
-    settings: { /* object with settings */ },
-    playOverlay: false,
-    loader: (val) => { /* handle loader */ },
-    sizeContainer: sizeContainerRef.current,
-    container: videoContainerRef.current,
-    videoRef: videoRef.current,
-    audioRef: audioRef.current,
-  applicationResponse: responseCallback,
-  videoInitializeCallback:(data)=> videoInitialized(data),
-    sendLetter:(messageSoc)=>sendSocketMessage(messageSoc),
-  
-  autoPlay:{
-    audio:true,
-    video:true
-  }
-  });
-
-setWebRTCclient(newWebRTC);
-
-}, []);
-
-
+  useEffect(() => {
+    const newWebRTC = new WebRTCClient ({
+      address: 'wss://signalling-client.ragnarok.arcware.cloud/',
+      shareId: 'share-330e9620-1a46-4a19-9c58-004f4d1869fe',
+      settings: { /* object with settings */ },
+      playOverlay: false,
+      loader: (val) => { /* handle loader */ },
+      sizeContainer: sizeContainerRef.current,
+      container: videoContainerRef.current,
+      videoRef: videoRef.current,
+      audioRef: audioRef.current,
+	  applicationResponse: responseCallback,
+	  videoInitializeCallback:(data)=> videoInitialized(data),
+      sendLetter:(messageSoc)=>sendSocketMessage(messageSoc),
+	  
+	  autoPlay:{
+		  audio:true,
+		  video:true
+	  }
+    });
+	
+  setWebRTCclient(newWebRTC);
+	
+  }, []);
   
     const toggleMute = () => {
 		var x = document.getElementById("myAudio");
 		
     setIsMuted(!isMuted);
-
+	x.play().then(()=>{
 	 x.muted = !isMuted;
-
+	});	
 	
     audioRef.current.muted = !isMuted;
   };
@@ -150,12 +120,12 @@ console.log(isFullScreen);
 
  if (elem.requestFullscreen) {
     elem.requestFullscreen();
-  } else if (elem.webkitEnterFullScreen) { /* Safari */
+  } else if (elem.webkitRequestFullscreen) { /* Safari */
     elem.webkitRequestFullscreen();
   } else if (elem.msRequestFullscreen) { /* IE11 */
     elem.msRequestFullscreen();
   }
- 
+  console.log(document);
 	
 			 if (document.fullscreenElement !== null) {
  if (document.exitFullscreen) {
@@ -172,11 +142,10 @@ console.log(isFullScreen);
 
   return (
  <>
-
-<div className='container-fluid'  ref={sizeContainerRef} style={{height:"100vh", width:"100vw",top:'0',bottom:'0', position:"fixed", left:"0",right:"0" }}>
+<div  ref={sizeContainerRef} style={{height:"80vh"}}>
 	
-      <div id="pixelPlay" ref={videoContainerRef} >
-         <video id="myVideo" autoplay ref={videoRef} />
+      <div id="pixelPlay" ref={videoContainerRef} style={{height:"80vh"}}>
+         <video autoplay ref={videoRef} />
         <audio  id="myAudio" autoPlay ref={audioRef} />
 		
 
@@ -188,7 +157,6 @@ console.log(isFullScreen);
 		
       </div>
     </div>
-  
 	</>
   );
 };
