@@ -15,7 +15,8 @@ if(b.length>1){
   var c = b[1].split("&");
   message = c[0];
 }
-
+let myScreenOrientation = window.screen.orientation;
+console.log(myScreenOrientation);
 console.log(isMobile.isMobile);
 
 function App() {
@@ -110,6 +111,7 @@ setVideoPlay(item);
            Istouch: 'True'
          };
 
+       
 
        }else{
          touchDescriptor = {
