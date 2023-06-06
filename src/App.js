@@ -16,10 +16,7 @@ if(b.length>1){
   message = c[0];
 }
 
-let winHeight = window.innerHeight;
-let winWidth = window.innerWidth;
-console.log(winHeight);
-console.log(winWidth);
+console.log(isMobile.isMobile);
 
 function App() {
   const sizeContainerRef = useRef(null);
@@ -206,7 +203,7 @@ console.log(isFullScreen);
  <>
 
  <Container fluid style={{ position:"fixed",top:"0",left:"0",right:"0",bottom:"0"}}> 
- <div style={{ position:"fixed",zIndex:"110",marginLeft:"140px"}}>
+ <div style={{ position:"fixed",zIndex:"110",marginLeft:"40px"}}>
  <img src = "./infilogo.png" width="100px" /> 
  </div >
  {loading == true ?(<>
@@ -221,16 +218,35 @@ console.log(isFullScreen);
 <Row >
 <div ref={sizeContainerRef} >
 	
-  <div ref={videoContainerRef} >
-           <video id="myVideo" autoPlay ref={videoRef} />
-        <audio  id="myAudio" autoPlay ref={audioRef} />
-		
+  {isMobile.isMobile == true?(
+      <div ref={videoContainerRef} style={{transform:"rotate(90 deg)",width:window.innerHeight,height:window.innerWidth}}>
+      <video id="myVideo" autoPlay ref={videoRef} />
+      <audio  id="myAudio" autoPlay ref={audioRef} />
 
- <button onClick={toggleMute} style={{zIndex:100, position:"fixed",bottom:"10px", backgroundColor:"transparent", border:"2px solid #0a0519", right:"180px"}}>{isMuted ? <BsFillVolumeMuteFill size={24} color='26F8FF'/> : <BsFillVolumeUpFill size={24} color='26F8FF'/>}</button>
-	
- <button onClick={()=>screenSize()} style={{zIndex:100, position:"fixed",bottom:"10px", backgroundColor:"transparent", border:"2px solid #0a0519", right:"120px"}}>{isFullScreen ? <BsFullscreenExit size={24} color='26F8FF'/> : <BsFullscreen size={24} color='26F8FF'/>}</button>
- 
-      </div></div>
+
+<button onClick={toggleMute} style={{zIndex:100, position:"fixed",bottom:"10px", backgroundColor:"transparent", border:"2px solid #0a0519", right:"180px"}}>{isMuted ? <BsFillVolumeMuteFill size={24} color='26F8FF'/> : <BsFillVolumeUpFill size={24} color='26F8FF'/>}</button>
+
+<button onClick={()=>screenSize()} style={{zIndex:100, position:"fixed",bottom:"10px", backgroundColor:"transparent", border:"2px solid #0a0519", right:"120px"}}>{isFullScreen ? <BsFullscreenExit size={24} color='26F8FF'/> : <BsFullscreen size={24} color='26F8FF'/>}</button>
+
+ </div>
+  ):(
+
+    <div ref={videoContainerRef} >
+    <video id="myVideo" autoPlay ref={videoRef} />
+    <audio  id="myAudio" autoPlay ref={audioRef} />
+
+
+<button onClick={toggleMute} style={{zIndex:100, position:"fixed",bottom:"10px", backgroundColor:"transparent", border:"2px solid #0a0519", right:"100px"}}>{isMuted ? <BsFillVolumeMuteFill size={24} color='26F8FF'/> : <BsFillVolumeUpFill size={24} color='26F8FF'/>}</button>
+
+<button onClick={()=>screenSize()} style={{zIndex:100, position:"fixed",bottom:"10px", backgroundColor:"transparent", border:"2px solid #0a0519", right:"40px"}}>{isFullScreen ? <BsFullscreenExit size={24} color='26F8FF'/> : <BsFullscreen size={24} color='26F8FF'/>}</button>
+
+</div>
+  )}
+
+      
+      
+      
+      </div>
 		
       </Row>
      
