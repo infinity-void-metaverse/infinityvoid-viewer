@@ -2,6 +2,7 @@ import React, { useRef, useEffect, useState } from 'react';
 import { WebRTCClient } from '@arcware/webrtc-plugin';
 import { BsFullscreen, BsFullscreenExit, BsFillVolumeMuteFill, BsFillVolumeUpFill } from "react-icons/bs";
 import { Container, Row } from 'reactstrap';
+import { Alert } from 'reactstrap';
 
 
 var isMobile = require('detect-touch-device');
@@ -30,28 +31,16 @@ function App() {
   const [isFullScreen, setIsFullScreen] = useState(false);
   const [loading, setLoading] = useState(true);
   const [videoPlay, setVideoPlay] = useState();
+  const [visible, setVisible] = useState(false);
 
+  const onDismiss = () => setVisible(false);
   const sendSocketMessage = async(messageSoc) => {
 
    console.log(messageSoc);
   }
 
 
-  const toggleYes =()=>{
-    var elem  = document.documentElement; 
-  
-		setIsFullScreen(!isFullScreen);
 
-
- if (elem.requestFullscreen) {
-    elem.requestFullscreen();
-  } else if (elem.webkitEnterFullScreen) { /* Safari */
-    elem.webkitRequestFullscreen();
-  } else if (elem.msRequestFullscreen) { /* IE11 */
-    elem.msRequestFullscreen();
-  }
-
-  }
 
   
   const responseCallback = (message) => {
@@ -155,6 +144,15 @@ useEffect(() => {
 
 setWebRTCclient(newWebRTC);
 
+
+if(isMobile.isMobile == true){
+  setVisible(true);
+
+  setTimeout(() => { 
+    setVisible(false)
+}, 5000);
+}
+
 }, []);
 
 
@@ -242,6 +240,11 @@ console.log(isFullScreen);
   
 
   </Container>
+
+
+  <Alert style={{position: 'fixed', bottom:"0"}} color="info" isOpen={visible} toggle={onDismiss}>
+  Please rotate your device!
+    </Alert>
 	</>
   );
 };
