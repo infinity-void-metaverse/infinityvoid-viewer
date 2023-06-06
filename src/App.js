@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { WebRTCClient } from '@arcware/webrtc-plugin';
 import { BsFullscreen, BsFullscreenExit, BsFillVolumeMuteFill, BsFillVolumeUpFill } from "react-icons/bs";
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import { Container, Row } from 'reactstrap';
 
 
 var isMobile = require('detect-touch-device');
@@ -16,7 +16,10 @@ if(b.length>1){
   message = c[0];
 }
 
-
+let winHeight = window.innerHeight;
+let winWidth = window.innerWidth;
+console.log(winHeight);
+console.log(winWidth);
 
 function App() {
   const sizeContainerRef = useRef(null);
@@ -29,7 +32,6 @@ function App() {
   const [isFullScreen, setIsFullScreen] = useState(false);
   const [loading, setLoading] = useState(true);
   const [videoPlay, setVideoPlay] = useState();
-  const [modal, setModal] = useState(true);
 
   const sendSocketMessage = async(messageSoc) => {
 
@@ -37,12 +39,9 @@ function App() {
   }
 
 
-  const toggle = () => setModal(!modal);
-
   const toggleYes =()=>{
     var elem  = document.documentElement; 
-    setModal(!modal);      
-	
+  
 		setIsFullScreen(!isFullScreen);
 
 
@@ -121,14 +120,14 @@ setVideoPlay(item);
          };
        }
 	   
-		    await delay(8000).then(()=>{
+		    await delay(8000).then(async()=>{
 
 
          
 					 data.emitUIInteraction(consoleDescriptor);
 				   data.emitUIInteraction(touchDescriptor);
 
-          setLoading(false);
+           await delay(2200).then(()=> {setLoading(false);});
        
 
 				
@@ -153,11 +152,6 @@ useEffect(() => {
   applicationResponse: responseCallback,
   videoInitializeCallback:(data)=> videoInitialized(data),
     sendLetter:(messageSoc)=>sendSocketMessage(messageSoc),
-  
-  autoPlay:{
-    audio:true,
-    video:true
-  }
   });
 
 setWebRTCclient(newWebRTC);
@@ -210,54 +204,39 @@ console.log(isFullScreen);
 
   return (
  <>
- <div style={{position:"absolute",height:"100vh", width:"100vw"}}>
-  
+
+ <Container fluid style={{ position:"fixed",top:"0",left:"0",right:"0",bottom:"0"}}> 
  <div style={{ position:"fixed",zIndex:"110",marginLeft:"140px"}}>
  <img src = "./infilogo.png" width="100px" /> 
- </div>
+ </div >
  {loading == true ?(<>
-  <div  style={{ position:"fixed",zIndex:"100"}}>
-  <video ref={videoPlayRef} src={videoPlay}  loop muted autoPlay  type="video/mp4" />
+  <Row style={{position:"fixed",top:"0",left:"0",right:"0",bottom:"0",zIndex:"100"}}>
+  <video ref={videoPlayRef} src={videoPlay}  loop muted autoPlay  type="video/mp4"  />
 
-  </div>
+  </Row>
 </>):(null)}
 
 
 
-<div className='container-fluid'  ref={sizeContainerRef} style={{top:0,bottom:0,height:"100vh", width:"100vw", position:"fixed", left:0,right:0 }}>
+<Row >
+<div ref={sizeContainerRef} >
 	
-      <div ref={videoContainerRef} >
-         <video id="myVideo" autoPlay ref={videoRef} />
+  <div ref={videoContainerRef} >
+           <video id="myVideo" autoPlay ref={videoRef} />
         <audio  id="myAudio" autoPlay ref={audioRef} />
 		
 
- <button onClick={toggleMute} style={{zIndex:100, position:"fixed",bottom:"10px", backgroundColor:"transparent", border:"0px", borderColor:"transparent", right:"70px"}}>{isMuted ? <BsFillVolumeMuteFill size={24} color='26F8FF'/> : <BsFillVolumeUpFill size={24} color='26F8FF'/>}</button>
+ <button onClick={toggleMute} style={{zIndex:100, position:"fixed",bottom:"10px", backgroundColor:"transparent", border:"2px solid #0a0519", right:"180px"}}>{isMuted ? <BsFillVolumeMuteFill size={24} color='26F8FF'/> : <BsFillVolumeUpFill size={24} color='26F8FF'/>}</button>
 	
- <button onClick={()=>screenSize()} style={{zIndex:100, position:"fixed",bottom:"10px", backgroundColor:"transparent", border:"0px", borderColor:"transparent", right:"25px"}}>{isFullScreen ? <BsFullscreenExit size={24} color='26F8FF'/> : <BsFullscreen size={24} color='26F8FF'/>}</button>
+ <button onClick={()=>screenSize()} style={{zIndex:100, position:"fixed",bottom:"10px", backgroundColor:"transparent", border:"2px solid #0a0519", right:"120px"}}>{isFullScreen ? <BsFullscreenExit size={24} color='26F8FF'/> : <BsFullscreen size={24} color='26F8FF'/>}</button>
  
-      
+      </div></div>
 		
-      </div>
-      </div>
-    </div>
+      </Row>
+     
   
 
-    <Modal  modalTransition={{ timeout: 700 }}
-        backdropTransition={{ timeout: 1300 }} isOpen={modal} toggle={toggle} >
-        <ModalHeader toggle={toggle}>Disclaimer</ModalHeader>
-        <ModalBody>
-         Switch to fullScreen
-        </ModalBody>
-        <ModalFooter>
-          <Button color="primary" onClick={toggleYes}>
-            Yes
-          </Button>{' '}
-          <Button color="secondary" onClick={toggle}>
-            No
-          </Button>
-        </ModalFooter>
-      </Modal>
-
+  </Container>
 	</>
   );
 };

@@ -11,8 +11,19 @@ video::-webkit-media-controls-fullscreen-button {
   display: none;
 }
 
+.container video {
+  display: flex;
+  justify-content: center;
+}
 
 
+.container-fluid{
+  padding: 0;
+  margin: 0;
+}
+.row{
+  --bs-gutter-x: 0;
+}
 .header{
 display: flex;
 margin-left: 5%;
@@ -23,7 +34,7 @@ margin-left: 5%;
 }
 
 
-
+  
 
 @media only screen and (max-width: 600px) {
   .wrapperButoon {
