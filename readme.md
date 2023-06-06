@@ -1,1 +1,1 @@
-InfinityVoid Viewer APP V1
+InfinityVoid Viewer APP
