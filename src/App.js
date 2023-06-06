@@ -219,7 +219,7 @@ console.log(isFullScreen);
 <div ref={sizeContainerRef} >
 
 
-    <div ref={videoContainerRef} >
+    <div  ref={videoContainerRef} >
     <video id="myVideo" autoPlay ref={videoRef} />
     <audio  id="myAudio" autoPlay ref={audioRef} />
 
