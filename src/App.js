@@ -223,10 +223,21 @@ console.log(isFullScreen);
     <video id="myVideo" autoPlay ref={videoRef} />
     <audio  id="myAudio" autoPlay ref={audioRef} />
 
+{isMobile.isMobile == true?(
+  <>
+  <button onClick={toggleMute} style={{zIndex:100, height:"40px",position:"fixed",top:"25px", backgroundColor:"#0a0519", border:"2px solid #0a0519", right:"120px"}}>{isMuted ? <BsFillVolumeMuteFill size={32} color='26F8FF'/> : <BsFillVolumeUpFill size={24} color='26F8FF'/>}</button>
 
+<button onClick={()=>screenSize()} style={{zIndex:100, height:"40px",position:"fixed",top:"25px", backgroundColor:"#0a0519", border:"2px solid #0a0519", right:"60px"}}>{isFullScreen ? <BsFullscreenExit size={32} color='26F8FF'/> : <BsFullscreen size={24} color='26F8FF'/>}</button>
+
+  </>
+):(
+<>
 <button onClick={toggleMute} style={{zIndex:100, height:"40px",position:"fixed",bottom:"25px", backgroundColor:"#0a0519", border:"2px solid #0a0519", right:"120px"}}>{isMuted ? <BsFillVolumeMuteFill size={32} color='26F8FF'/> : <BsFillVolumeUpFill size={24} color='26F8FF'/>}</button>
 
 <button onClick={()=>screenSize()} style={{zIndex:100, height:"40px",position:"fixed",bottom:"25px", backgroundColor:"#0a0519", border:"2px solid #0a0519", right:"60px"}}>{isFullScreen ? <BsFullscreenExit size={32} color='26F8FF'/> : <BsFullscreen size={24} color='26F8FF'/>}</button>
+
+</>
+)}
 
 </div>
  
