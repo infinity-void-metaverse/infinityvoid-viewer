@@ -202,7 +202,7 @@ console.log(isFullScreen);
   return (
  <>
 
- <Container fluid style={{ position:"fixed",top:"0",left:"0",right:"0",bottom:"0"}}> 
+ <Container fluid > 
  <div style={{ position:"fixed",zIndex:"110",marginLeft:"60px"}}>
  <img src = "./infilogo.png" width="100px" /> 
  </div >
