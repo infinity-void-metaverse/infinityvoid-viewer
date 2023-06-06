@@ -224,9 +224,9 @@ console.log(isFullScreen);
     <audio  id="myAudio" autoPlay ref={audioRef} />
 
 
-<button onClick={toggleMute} style={{zIndex:100, position:"fixed",bottom:"10px", backgroundColor:"transparent", border:"2px solid #0a0519", right:"100px"}}>{isMuted ? <BsFillVolumeMuteFill size={24} color='26F8FF'/> : <BsFillVolumeUpFill size={24} color='26F8FF'/>}</button>
+<button onClick={toggleMute} style={{zIndex:100, position:"fixed",bottom:"10px", backgroundColor:"transparent", border:"2px solid #0a0519", right:"120px"}}>{isMuted ? <BsFillVolumeMuteFill size={24} color='26F8FF'/> : <BsFillVolumeUpFill size={24} color='26F8FF'/>}</button>
 
-<button onClick={()=>screenSize()} style={{zIndex:100, position:"fixed",bottom:"10px", backgroundColor:"transparent", border:"2px solid #0a0519", right:"40px"}}>{isFullScreen ? <BsFullscreenExit size={24} color='26F8FF'/> : <BsFullscreen size={24} color='26F8FF'/>}</button>
+<button onClick={()=>screenSize()} style={{zIndex:100, position:"fixed",bottom:"10px", backgroundColor:"transparent", border:"2px solid #0a0519", right:"60px"}}>{isFullScreen ? <BsFullscreenExit size={24} color='26F8FF'/> : <BsFullscreen size={24} color='26F8FF'/>}</button>
 
 </div>
  
