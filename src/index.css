@@ -37,8 +37,8 @@ margin-left: 5%;
   html {
     transform: rotate(-90deg);
     transform-origin: left top;
-    width: 100vh;
-    height: 100vw;
+    width: 92vh;
+    height: 92vw;
     overflow-x: hidden;
     position: absolute;
     top: 100%;
