@@ -114,3 +114,7 @@ html{height:100vh;padding:env(safe-area-inset)}
 body {
   margin: 0;
 }
+
+video::-webkit-media-controls-enclosure {
+  display:none !important;
+}

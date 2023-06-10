@@ -215,7 +215,7 @@ console.log(isFullScreen);
          style={{display: 'flex', justifyContent: 'center', alignItems: 'center', maxHeight: '100%', maxWidth: '100%', height: '100%', 
          position: 'relative', top: 'auto', background: 'none'}}>
   <div ref={videoContainerRef} className="css-1ujh55s"style={{display: 'flex', height: 'auto', width: '100%', position: 'relative'}}>
-          <video ref={videoRef} />
+          <video  ref={videoRef} />
           <div className="css-fe8aaf">
               
 <button onClick={toggleMute}  className='btnVolume'>{isMuted ? <GoMute size={16} color='#F8F6F4' /> : <GoUnmute color='#F8F6F4' size={16} />}</button>
