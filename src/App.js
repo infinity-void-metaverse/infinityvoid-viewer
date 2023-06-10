@@ -1,8 +1,7 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { WebRTCClient } from '@arcware/webrtc-plugin';
-import { BsFullscreen, BsFullscreenExit, BsFillVolumeMuteFill, BsFillVolumeUpFill } from "react-icons/bs";
-import { Container, Row } from 'reactstrap';
-import { Alert } from 'reactstrap';
+import {GoUnmute, GoMute, GoScreenFull, GoScreenNormal} from "react-icons/go";
+
 
 
 var isMobile = require('detect-touch-device');
@@ -31,9 +30,7 @@ function App() {
   const [isFullScreen, setIsFullScreen] = useState(false);
   const [loading, setLoading] = useState(true);
   const [videoPlay, setVideoPlay] = useState();
-  const [visible, setVisible] = useState(false);
 
-  const onDismiss = () => setVisible(false);
   const sendSocketMessage = async(messageSoc) => {
 
    console.log(messageSoc);
@@ -145,13 +142,7 @@ useEffect(() => {
 setWebRTCclient(newWebRTC);
 
 
-if(isMobile.isMobile == true){
-  setVisible(true);
 
-  setTimeout(() => { 
-    setVisible(false)
-}, 5000);
-}
 
 }, []);
 
@@ -202,44 +193,46 @@ console.log(isFullScreen);
   return (
  <>
 
- <div> 
- <div style={{ position:"fixed",zIndex:"110",marginLeft:"60px"}}>
+<div style={{ position:"fixed",zIndex:"110",left:"20px"}}>
  <img src = "./infilogo.png" width="100px" /> 
  </div >
- {loading == true ?(<>
-  <Row style={{position:"fixed",top:"0",left:"0",right:"0",bottom:"0",zIndex:"100"}}>
+
+<div className="app_app__9OAH2">
+
+
+      <div style={{height: '100%', width: '100%', background: 'black', flex: '1 1 auto', display: 'flex',
+         alignItems: 'center', flexDirection: 'column'}}>
+
+{loading == true ?(<>
   <video ref={videoPlayRef} src={videoPlay}  loop muted autoPlay  type="video/mp4"  />
 
-  </Row>
+  
 </>):(null)}
 
 
+     <audio id="myAudio" ref={audioRef} />
+        <div ref={sizeContainerRef} id="interactive-video" className="InteractiveVideo_interactive-video__Ej1qP"
+         style={{display: 'flex', justifyContent: 'center', alignItems: 'center', maxHeight: '100%', maxWidth: '100%', height: '100%', 
+         position: 'relative', top: 'auto', background: 'none'}}>
+  <div ref={videoContainerRef} className="css-1ujh55s"style={{display: 'flex', height: 'auto', width: '100%', position: 'relative'}}>
+          <video ref={videoRef} />
+          <div className="css-fe8aaf">
+              
+<button onClick={toggleMute}  className='btnVolume'>{isMuted ? <GoMute size={24} color='#fff' /> : <GoUnmute color='#fff' size={24} />}</button>
 
-< >
-<div ref={sizeContainerRef} >
+<button onClick={()=>screenSize()} className='btnFullScreen'>{isFullScreen ? <GoScreenNormal color='#fff' size={24} /> : <GoScreenFull size={24} color='#fff'/>}</button>
+
+            </div>
+
+          </div>
+          
+          </div>
+          
+          </div>
+          
+          </div>
 
 
-    <div ref={videoContainerRef} >
-    <video id="myVideo" autoPlay ref={videoRef} />
-    <audio  id="myAudio" autoPlay ref={audioRef} />
-
-
-<button onClick={toggleMute} style={{zIndex:100, height:"40px",position:"fixed",bottom:"25px", backgroundColor:"#0a0519", border:"2px solid #0a0519", right:"120px"}}>{isMuted ? <BsFillVolumeMuteFill size={32} color='26F8FF'/> : <BsFillVolumeUpFill size={24} color='26F8FF'/>}</button>
-
-<button onClick={()=>screenSize()} style={{zIndex:100, height:"40px",position:"fixed",bottom:"25px", backgroundColor:"#0a0519", border:"2px solid #0a0519", right:"60px"}}>{isFullScreen ? <BsFullscreenExit size={32} color='26F8FF'/> : <BsFullscreen size={24} color='26F8FF'/>}</button>
-
-</div>
- 
-      
-      
-      
-      </div>
-		
-      </>
-     
-  
-
-  </div>
 
 
 	</>
