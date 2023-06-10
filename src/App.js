@@ -5,7 +5,7 @@ import {GoUnmute, GoMute, GoScreenFull, GoScreenNormal} from "react-icons/go";
 
 
 var isMobile = require('detect-touch-device');
-let playListVideo =["https://development-test.fra1.cdn.digitaloceanspaces.com/1.mp4","https://development-test.fra1.cdn.digitaloceanspaces.com/2.mp4","https://development-test.fra1.cdn.digitaloceanspaces.com/3.mp4"];
+let playListVideo =["https://development-test.fra1.cdn.digitaloceanspaces.com/3.mp4","https://development-test.fra1.cdn.digitaloceanspaces.com/3.mp4","https://development-test.fra1.cdn.digitaloceanspaces.com/3.mp4"];
 
 let message;
 var a = window.location.search;
@@ -163,7 +163,7 @@ setWebRTCclient(newWebRTC);
     const screenSize = () => {
 		
 
-    var elem  = document.documentElement;       
+    var elem  = document.getElementById("interactive-video");       
 	
 		setIsFullScreen(!isFullScreen);
 console.log(isFullScreen);
@@ -218,9 +218,9 @@ console.log(isFullScreen);
           <video ref={videoRef} />
           <div className="css-fe8aaf">
               
-<button onClick={toggleMute}  className='btnVolume'>{isMuted ? <GoMute size={24} color='#fff' /> : <GoUnmute color='#fff' size={24} />}</button>
+<button onClick={toggleMute}  className='btnVolume'>{isMuted ? <GoMute size={16} color='#F8F6F4' /> : <GoUnmute color='#F8F6F4' size={16} />}</button>
 
-<button onClick={()=>screenSize()} className='btnFullScreen'>{isFullScreen ? <GoScreenNormal color='#fff' size={24} /> : <GoScreenFull size={24} color='#fff'/>}</button>
+<button onClick={()=>screenSize()} className='btnFullScreen'>{isFullScreen ? <GoScreenNormal size={16} color='#F8F6F4'  /> : <GoScreenFull size={16} color='#F8F6F4'/>}</button>
 
             </div>
 
