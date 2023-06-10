@@ -202,7 +202,7 @@ console.log(isFullScreen);
   return (
  <>
 
- <Container fluid style={{ position:"fixed",top:"0",left:"0",right:"0",bottom:"0"}}> 
+ <div> 
  <div style={{ position:"fixed",zIndex:"110",marginLeft:"60px"}}>
  <img src = "./infilogo.png" width="100px" /> 
  </div >
@@ -215,7 +215,7 @@ console.log(isFullScreen);
 
 
 
-<Row >
+< >
 <div ref={sizeContainerRef} >
 
 
@@ -235,16 +235,13 @@ console.log(isFullScreen);
       
       </div>
 		
-      </Row>
+      </>
      
   
 
-  </Container>
+  </div>
 
 
-  <Alert style={{position: 'fixed', bottom:"0"}} color="info" isOpen={visible} toggle={onDismiss}>
-  Please rotate your device!
-    </Alert>
 	</>
   );
 };
