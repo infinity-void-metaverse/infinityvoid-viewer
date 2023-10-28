@@ -12,8 +12,9 @@ var a = window.location.search;
 var b = a.split("?");
 if(b.length>1){
  
-  var c = b[1].split("&");
-  message = c[0];
+ 
+  message = b[1];
+  console.log(message);
 }
 let myScreenOrientation = window.screen.orientation;
 console.log(myScreenOrientation);
@@ -41,11 +42,15 @@ function App() {
 
   
   const responseCallback = (message) => {
-    var win = window.open(message, '_blank');
 
-    if(win !==null){
-      win.focus();
+    if(message !== "closeUi" ){
+      var win = window.open(message, '_blank');
+
+      if(win !==null){
+        win.focus();
+      }
     }
+   
 
   }
  const delay = ms => new Promise(
@@ -83,34 +88,45 @@ setVideoPlay(item);
   const videoInitialized = async(data) => {
  
 
-    console.log(data);
+    var c = message.split("&");
+    var sceneId = c[0].split("=")[1];
+    var userId = c[1].split("=")[1];
+
+    console.log(sceneId);
+    console.log(userId);
+
+    let touchDescriptor;
+
+
+    if(isMobile.isMobile == true){
+      touchDescriptor = {
+       Istouch: 'True'
+     };
+
+   
+
+   }else{
+     touchDescriptor = {
+       Istouch: 'False'
+     };
+   }
+
+    var obj={Istouch:touchDescriptor.Istouch,userId:userId,projectType:"userGame",networkIp:"singlePlayer",sceneId:sceneId}
+    var ele = JSON.stringify(obj);
+
 
        let consoleDescriptor = {
-          MessageId: message
+          MessageId: ele
         };
 		
-		let touchDescriptor;
-
-
-        if(isMobile.isMobile == true){
-          touchDescriptor = {
-           Istouch: 'True'
-         };
-
-       
-
-       }else{
-         touchDescriptor = {
-           Istouch: 'False'
-         };
-       }
+console.log(consoleDescriptor);
 	   
 		    await delay(8000).then(async()=>{
 
 
          
 					 data.emitUIInteraction(consoleDescriptor);
-				   data.emitUIInteraction(touchDescriptor);
+
 
            await delay(2200).then(()=> {setLoading(false);});
        
@@ -126,9 +142,9 @@ setVideoPlay(item);
 useEffect(() => {
   const newWebRTC = new WebRTCClient ({
     address: 'wss://signalling-client.ragnarok.arcware.cloud/',
-    shareId: 'share-330e9620-1a46-4a19-9c58-004f4d1869fe',
+    shareId: 'share-3235a6a6-64b4-468f-8724-9c4bb2eea500',
     settings: { /* object with settings */ },
-    playOverlay: false,
+    playOverlay: true,
     loader: (val) => { /* handle loader */ },
     sizeContainer: sizeContainerRef.current,
     container: videoContainerRef.current,
