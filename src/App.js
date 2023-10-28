@@ -14,7 +14,7 @@ if(b.length>1){
  
  
   message = b[1];
-  console.log(message);
+
 }
 let myScreenOrientation = window.screen.orientation;
 console.log(myScreenOrientation);
@@ -119,7 +119,6 @@ setVideoPlay(item);
           MessageId: ele
         };
 		
-console.log(consoleDescriptor);
 	   
 		    await delay(8000).then(async()=>{
 
