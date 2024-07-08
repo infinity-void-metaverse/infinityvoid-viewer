@@ -1,9 +1,8 @@
 {
-  "name": "streampixelviewer",
+  "name": "infinityvoidviewer",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@arcware-cloud/pixelstreaming-websdk": "^0.1.11",
     "@arcware/webrtc-plugin": "^0.3.11",
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.3.0",
